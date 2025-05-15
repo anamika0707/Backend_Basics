@@ -1,9 +1,14 @@
 const express=require('express');
-const morgan=requre('morgan')
+const morgan=require('morgan')
 const apps=express();
 
 
-apps.use(mogan('dev')) //this is an third party middle ware
+// apps.use(mogan('dev')) //this is an third party middle ware
+
+apps.use(express.json())
+apps.use(express.urlencoded({extended:true}))
+
+apps.use(express.static("public"))
 
 apps.set("view engine",'ejs') // this should always be used if we want to render html
 
@@ -37,4 +42,17 @@ apps.get('/about',(req,res)=>{
     res.send("this is about")
 })
 
+// apps.get('/get-form-data',(req,res)=>{
+//     console.log(req.query)
+//     res.send('data received')
+// }) //ye get route jab hum use ker rhe the form ke data ke liye to hume url pe password dikh rha tha jo ki hume nhi dikhana hai isliye hum post route ka use karenge
+
+//basically post frontend se data backend tak magane ke liye use hoti hai whi get server se frontend tak data le jane ke liye use hota hai
+ 
+//by default express post ke dwara data read nhi ker skta hai isliye hum do middle ware ka use kerte hai app.use(express.json()) and app.use(express.urlencoded({extended:true}))
+
+apps.post('/get-form-data',(req,res)=>{
+    console.log(req.body)
+    res.send('data received')
+})
 apps.listen(3000)
