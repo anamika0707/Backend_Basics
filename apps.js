@@ -44,6 +44,21 @@ apps.get('/about',(req,res)=>{
     res.send("this is about")
 })
 
+apps.get('/register', (req,res)=>{
+    res.render('register')
+})
+
+apps.post('/register',async(req,res)=>{
+    //destructuring
+    const {username,email,password}=req.body
+  const newUser= await userModel.create({
+        username:username,
+        email:email,
+        password:password
+    })
+    console.log(req.body)
+    res.send("user register")
+})
 // apps.get('/get-form-data',(req,res)=>{
 //     console.log(req.query)
 //     res.send('data received')
