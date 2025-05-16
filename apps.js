@@ -1,6 +1,8 @@
 const express=require('express');
 const morgan=require('morgan')
 const apps=express();
+const userModel=require('./models/user')
+const dbConnection=require('./config/db')
 
 
 // apps.use(mogan('dev')) //this is an third party middle ware
